@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JOGO DA VELHA</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            font-family: 'Comic Sans MS', cursive;
+        }
+
+        h1 {
+            font-size: 48px;
+            color: red;
+            animation: pulse 1s infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .game-container {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-template-rows: repeat(3, 100px);
+            gap: 5px;
+            background-color: white;
+            border: 5px solid black;
+            border-radius: 10px;
+            padding: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .cell {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100px;
+            height: 100px;
+            border: 2px solid black;
+            font-size: 48px;
+            cursor: pointer;
+            color: red;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .cell:hover {
+            background-color: #f8c8c8;
+            transform: scale(1.05);
+        }
+
+        .message {
+            text-align: center;
+            font-size: 24px;
+            margin-top: 20px;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>JOGO DA VELHA</h1>
+    
+    <div class="game-container">
+        <div class="cell" data-cell-index="0"></div>
+        <div class="cell" data-cell-index="1"></div>
+        <div class="cell" data-cell-index="2"></div>
+        <div class="cell" data-cell-index="3"></div>
+        <div class="cell" data-cell-index="4"></div>
+        <div class="cell" data-cell-index="5"></div>
+        <div class="cell" data-cell-index="6"></div>
+        <div class="cell" data-cell-index="7"></div>
+        <div class="cell" data-cell-index="8"></div>
+    </div>
+
+    <div class="message"></div>
+
+    <script>
+        const cells = document.querySelectorAll('.cell');
+        const message = document.querySelector('.message');
+        let currentPlayer = 'X';
+
+        function handleClick(event) {
+            const cell = event.target;
+            if (cell.textContent === '') {
+                cell.textContent = currentPlayer;
+                if (checkWin()) {
+                    message.textContent = `Vitória do jogador ${currentPlayer}!`;
+                    disableCells();
+                } else if (isDraw()) {
+                    message.textContent = 'Partida empatada, joguem mais uma vez!';
+                } else {
+                    currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+                }
+            }
+        }
+
+        function checkWin() {
+            const winningCombinations = [
+                [0, 1, 2],
+                [3, 4, 5],
+                [6, 7, 8],
+                [0, 3, 6],
+                [1, 4, 7],
+                [2, 5, 8],
+                [0, 4, 8],
+                [2, 4, 6]
+            ];
+
+            return winningCombinations.some(combination => {
+                return combination.every(index => cells[index].textContent === currentPlayer);
+            });
+        }
+
+        function isDraw() {
+            return [...cells].every(cell => cell.textContent !== '');
+        }
+
+        function disableCells() {
+            cells.forEach(cell => cell.removeEventListener('click', handleClick));
+        }
+
+        cells.forEach(cell => cell.addEventListener('click', handleClick));
+    </script>
+</body>
+</html>

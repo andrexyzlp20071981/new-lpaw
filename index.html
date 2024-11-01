@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Inicial</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #e0e0e0;
+            font-family: Arial, sans-serif;
+        }
+
+        .div {
+            display: flex;
+            justify-content: space-around;
+            width: 80%;
+            max-width: 800px;
+        }
+
+        .imagem {
+            text-align: center;
+            margin: 20px;
+        }
+
+        .imagem img {
+            width: 400px; 
+            height: 400px; 
+            border-radius: 10px; 
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            cursor: pointer; 
+        }
+
+        .legenda {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>INICIO</h1>
+    <div class="div">
+        <div class="imagem">
+            <a href="pc.html" target="_blank"> 
+                <img src="woman-showing-laptop-screen.jpg" alt="Computador">
+            </a>
+            <div class="legenda">PC</div>
+        </div>
+        <div class="imagem">
+            <a href="phone.html" target="_blank"> 
+                <img src="phone_14_01.jpg" alt="Celular">
+            </a>
+            <div class="legenda">Celular</div>
+        </div>
+    </div>
+</body>
+</html>
